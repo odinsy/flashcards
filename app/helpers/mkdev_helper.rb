@@ -1,0 +1,2 @@
+module MkdevHelper
+end
