@@ -7,17 +7,25 @@
   width: 960px;
 }
 
-#container > section {
-  clear: both;
+#container {
+	section {
+  		clear: both;
+  		}
 }
 
-#container > header {
-  margin-bottom: 46px;
+#container {
+	header {
+  		margin-bottom: 46px;
+  		}
 }
 
-#container > header > h1 {
-  float: left;
-  margin: 0;
+#container {
+	header {
+		h1 {
+  			float: left;
+  			margin: 0;
+  		}
+  	}
 }
 
 .navigation-links {
@@ -32,3 +40,7 @@
 /* MISC */
 
 .clearfix:after {content:".";display:block;clear:both;visibility:hidden;line-height:0;height:0;} html[xmlns].clearfix{display:block;} * html .clearfix{height:1%;}
+
+.fade {
+  font-size: 22px;
+}
