@@ -1,0 +1,2 @@
+class CardsControllerController < ApplicationController
+end
