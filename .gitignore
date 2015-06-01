@@ -42,3 +42,8 @@ bower.json
 
 # Ignore pow environment settings
 .powenv
+
+app/assets/javascripts/cards.cofee
+app/helpers/cards_helper.rb
+test/controllers/*
+test/test_helper.rb
