@@ -1,0 +1,12 @@
+<center><h1>Здесь список всех Cards</h1></center>
+
+<table border="1" align="center">
+  <% @cards.each do |card| %>
+    <tr>
+      <td><%= card.id %></td>
+      <td><%= card.original_text %></td>
+      <td><%= card.translated_text %></td>
+      <td><%= card.review_date.strftime("%d/%m/%Y") %></td>
+    </tr>
+    <% end %>
+</table>
