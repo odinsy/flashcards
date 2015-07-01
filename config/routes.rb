@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
 
-  root 'mkdev#index'
-
+  root "main#index"
   resources :cards
 
 end
