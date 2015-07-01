@@ -1,6 +1,16 @@
-<center><h1>Здесь список всех Cards</h1></center>
-
-<table border="1" align="center">
+<table class="table table-striped">
+<caption>Список карточек</caption>
+  <thead>
+    <tr>
+      <td>ID карточки</td>
+      <td>Оригинальный текст</td>
+      <td>Переведенный текст</td>
+      <td>Дата просмотра</td>
+      <td></td>
+      <td></td>
+    </tr>
+  </thead>
+  <tbody>
   <% @cards.each do |card| %>
     <tr>
       <td><%= card.id %></td>
@@ -10,5 +20,6 @@
       <td><%= link_to "Редактировать", edit_card_path(card) %></td>
       <td><%= link_to "Удалить", card, method: :delete, data: { confirm: 'Are you sure?' } %></td>
     </tr>
-    <% end %>
+  <% end %>
+  </tbody>
 </table>
