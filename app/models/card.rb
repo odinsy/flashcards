@@ -5,6 +5,12 @@ class Card < ActiveRecord::Base
 
   scope :to_repeat, -> { where("review_date <= ?", Date.today) }
 
+  def compare(user_input)
+    if user_input.downcase.strip == self.original_text.downcase.strip
+      set_review_date
+    end
+  end
+
   private
 
   def texts_are_different

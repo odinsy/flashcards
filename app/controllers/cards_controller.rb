@@ -10,15 +10,14 @@ class CardsController < ApplicationController
   end
 
   def compare
-    query = params[:query]
-    if query.downcase.strip == @card.original_text.downcase.strip
-      flash[:notice] = "Правильно!"
-      @card.review_date += 3.days
+    user_input = params[:user_input]
+    if @card.compare(user_input)
       @card.save
+      flash[:notice] = "Правильно!"
     else
       flash[:alert] = "Неправильно!"
     end
-    redirect_to root_path
+    redirect_to :back
   end
 
   def new
@@ -54,7 +53,7 @@ class CardsController < ApplicationController
   private
 
     def card_params
-      params.require(:card).permit(:original_text, :translated_text, :review_date, :query)
+      params.require(:card).permit(:original_text, :translated_text, :review_date)
     end
 
     def find_card
