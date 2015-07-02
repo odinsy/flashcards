@@ -3,6 +3,8 @@ class Card < ActiveRecord::Base
   validate  :texts_are_different
   before_validation :set_review_date, on: :create
 
+  scope :to_repeat, -> { where('review_date <= ?', Date.today) }
+
   private
 
   def texts_are_different

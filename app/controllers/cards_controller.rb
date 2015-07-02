@@ -1,12 +1,24 @@
 class CardsController < ApplicationController
 
-  before_action :find_card, only: [:show, :edit, :update, :destroy]
+  before_action :find_card, only: [:show, :edit, :update, :destroy, :compare]
 
   def index
-    @cards = Card.all
+    @cards = Card.all.order(:id)
   end
 
   def show
+  end
+
+  def compare
+    query = params[:query]
+    if query.downcase.strip == @card.translated_text.downcase.strip
+      flash[:notice] = "Правильно!"
+      @card.review_date += 3.days
+      @card.save
+    else
+      flash[:alert] = "Неправильно!"
+    end
+    redirect_to root_path
   end
 
   def new
@@ -42,7 +54,7 @@ class CardsController < ApplicationController
   private
 
     def card_params
-      params.require(:card).permit(:original_text, :translated_text, :review_date)
+      params.require(:card).permit(:original_text, :translated_text, :review_date, :query)
     end
 
     def find_card
