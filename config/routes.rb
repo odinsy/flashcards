@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   root "main#index"
   resources :cards do
     member do
-      post 'compare'
+      post "compare"
     end
   end
 
