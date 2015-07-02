@@ -11,7 +11,7 @@ class CardsController < ApplicationController
 
   def compare
     query = params[:query]
-    if query.downcase.strip == @card.translated_text.downcase.strip
+    if query.downcase.strip == @card.original_text.downcase.strip
       flash[:notice] = "Правильно!"
       @card.review_date += 3.days
       @card.save
