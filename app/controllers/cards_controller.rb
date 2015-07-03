@@ -1,23 +1,12 @@
 class CardsController < ApplicationController
 
-  before_action :find_card, only: [:show, :edit, :update, :destroy, :compare]
+  before_action :find_card, only: [:show, :edit, :update, :destroy, :review]
 
   def index
     @cards = Card.all.order(:id)
   end
 
   def show
-  end
-
-  def compare
-    user_input = params[:user_input]
-    if @card.compare(user_input)
-      @card.save
-      flash[:notice] = "Правильно!"
-    else
-      flash[:alert] = "Неправильно!"
-    end
-    redirect_to :back
   end
 
   def new

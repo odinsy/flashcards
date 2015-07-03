@@ -5,16 +5,21 @@ class Card < ActiveRecord::Base
 
   scope :to_repeat, -> { where("review_date <= ?", Date.today) }
 
-  def compare(user_input)
-    if user_input.downcase.strip == self.original_text.downcase.strip
+  def review(user_input)
+    if prepare_word(user_input) == prepare_word(original_text)
       set_review_date
+      self.save
     end
+  end
+
+  def prepare_word(string)
+    string.mb_chars.downcase.strip
   end
 
   private
 
   def texts_are_different
-    if self.original_text.downcase.strip == self.translated_text.downcase.strip
+    if prepare_word(self.original_text) == prepare_word(self.translated_text)
       errors.add(:original_text, "Text can't be the same")
     end
   end

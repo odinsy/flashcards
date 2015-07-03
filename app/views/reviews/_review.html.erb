@@ -1,0 +1,5 @@
+<%= form_tag reviews_path(@card) do %>
+  <%= @card.translated_text %><br>
+  <%= text_field_tag :user_input, params[:user_input] %>
+  <%= submit_tag("Review") %>
+<% end %>

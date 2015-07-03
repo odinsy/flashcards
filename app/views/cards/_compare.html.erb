@@ -1,8 +1,0 @@
-<%= form_tag compare_card_path(@card) do %>
-  <%= @card.translated_text %><br>
-  <%= hidden_field_tag :original_text, @card.original_text %>
-  <%= hidden_field_tag :translated_text, @card.translated_text %>
-  <%= hidden_field_tag :review_date, @card.review_date %>
-  <%= text_field_tag :user_input, params[:user_input] %>
-  <%= submit_tag("Compare") %>
-<% end %>

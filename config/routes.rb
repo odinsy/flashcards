@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
 
   root "main#index"
-  resources :cards do
+  resources :cards, shallow: true do
     member do
-      post "compare"
+      resources :reviews, only: [:new, :create]
     end
   end
 
