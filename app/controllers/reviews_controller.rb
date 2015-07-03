@@ -1,5 +1,4 @@
 class ReviewsController < ApplicationController
-
   def new
   end
 
@@ -14,4 +13,9 @@ class ReviewsController < ApplicationController
     redirect_to :back
   end
 
+  private
+
+  def review_params
+    params.require(:card).permit(:review_date)
+  end
 end

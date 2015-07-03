@@ -19,12 +19,9 @@
       </nav>
     </header>
     <section>
-      <% if flash[:notice] %>
-        <div><%= flash[:notice] %></div>
-      <% end %>
-      <% if flash[:alert] %>
-        <div><%= flash[:alert] %></div>
-      <% end %>
+      <% flash.each do |name, msg| -%>
+        <%= content_tag :div, msg, class: "alert alert-info" %>
+      <% end -%>
       <%= yield %>
     </section>
   </section>
