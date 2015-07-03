@@ -18,7 +18,7 @@ class Card < ActiveRecord::Base
   private
 
   def texts_are_different
-    if prepare_word(self.original_text) == prepare_word(self.translated_text)
+    if prepare_word(original_text) == prepare_word(translated_text)
       errors.add(:original_text, "Text can't be the same")
     end
   end

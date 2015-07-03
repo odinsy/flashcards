@@ -15,8 +15,8 @@ class ReviewsController < ApplicationController
 
   private
 
-    def review_params
-      params.require(:card).permit(:review_date)
-    end
+  def review_params
+    params.require(:card).permit(:review_date)
+  end
 
 end
