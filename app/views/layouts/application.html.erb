@@ -13,12 +13,17 @@
       <h1>Флэшкарточкер</h1>
       <nav class="navbar-right">
         <ul class="nav nav-pills">
+          <li><%= link_to "Главная", root_path %></li>
+          <li><%= link_to "Тренировщик", new_review_path %></li>
           <li><%= link_to "Все карточки", cards_path %></li>
           <li><%= link_to "Добавить карточку", new_card_path %></li>
         </ul>
       </nav>
     </header>
     <section>
+      <% flash.each do |name, msg| -%>
+        <%= content_tag :div, msg, class: "alert alert-info" %>
+      <% end -%>
       <%= yield %>
     </section>
   </section>

@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
-
-  root 'mkdev#index'
-
+  root "main#index"
   resources :cards
-
+  resources :reviews, only: [:new, :create]
 end
