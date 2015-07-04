@@ -7,7 +7,7 @@ class Card < ActiveRecord::Base
 
   def review(user_input)
     if prepare_word(user_input) == prepare_word(original_text)
-      update_attribute(:review_date, Date.today + 3.days)
+      update_attributes(review_date: Date.today + 3.days)
     end
   end
 

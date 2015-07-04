@@ -1,7 +1,7 @@
-<%= @card.translated_text %><br>
 <% unless @card.nil? %>
+  <%= @card.translated_text %>
   <%= form_for :review, url: reviews_path do |f| %>
-    <%= f.hidden_field :card_id, :value => @card.id %>
+    <%= f.hidden_field :card_id, value: @card.id %>
     <%= f.text_field :user_input %>
     <%= f.submit("Review") %>
   <% end %>
