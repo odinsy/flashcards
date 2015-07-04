@@ -1,6 +1,6 @@
 class CardsController < ApplicationController
 
-  before_action :find_card, only: [:show, :edit, :update, :destroy, :review]
+  before_action :find_card, only: [:show, :edit, :update, :destroy]
 
   def index
     @cards = Card.all.order(:id)

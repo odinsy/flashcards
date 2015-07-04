@@ -1,11 +1,13 @@
 class ReviewsController < ApplicationController
 
   def new
+    @card = Card.to_repeat.order("RANDOM()").first
   end
 
   def create
-    @card = Card.find(params[:id])
-    if @card.review(params[:user_input])
+    @card = Card.find(review_params[:card_id])
+    @card.review(review_params[:user_input])
+    if @card.review(review_params[:user_input])
       flash[:notice] = "Правильно!"
     else
       flash[:alert] = "Неправильно!"
@@ -16,7 +18,7 @@ class ReviewsController < ApplicationController
   private
 
   def review_params
-    params.require(:card).permit(:review_date)
+    params.require(:review).permit(:user_input, :card_id)
   end
 
 end
