@@ -30,7 +30,7 @@ describe Card do
   end
 
   context "when called #review" do
-    let(:card) { card = create(:card) }
+    let(:card) { create(:card) }
 
     it "review date increases if translation is correct" do
       card.review_date = Date.today
