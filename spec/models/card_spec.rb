@@ -1,15 +1,15 @@
 require "rails_helper"
 
-RSpec.describe Card, :type => :model do
+describe Card do
 
-  describe "#prepare_word" do
+  context "when called #prepare_word" do
     it "changes the text to downcase and delete spaces before and after" do
       card = create(:card)
       expect(card.prepare_word(card.original_text)).to eq("text 1123 мирум")
     end
   end
 
-  describe "#texts_are_different" do
+  context "when called method #texts_are_different" do
     it "checks that texts are different" do
       card = build(:card)
       card.valid?
@@ -22,26 +22,24 @@ RSpec.describe Card, :type => :model do
     end
   end
 
-  describe "#set_review_date" do
+  context "when created a new card" do
     it "checks that to review_date added 3 days" do
       card = create(:card)
       expect(card.review_date).to eq(Date.today + 3.days)
     end
   end
 
-  describe "#review" do
-    it "check that if user_input == original_text to review_date added 3 days" do
-      card = create(:card)
+  context "when called #review" do
+    let(:card) { card = create(:card) }
+
+    it "review date increases if translation is correct" do
       card.review_date = Date.today
-      user_input = card.original_text
-      card.review(user_input)
+      card.review(card.original_text)
       expect(card.review_date).to eq(Date.today + 3.days)
     end
-    it "check that if user_input != original_text review_date was not cnanged" do
-      card = create(:card)
+    it "review date remains the same if translation is incorrect" do
       card.review_date = Date.today
-      user_input = "abrakAdabra"
-      card.review(user_input)
+      card.review("abrakAdabra")
       expect(card.review_date).to eq(Date.today)
     end
   end
