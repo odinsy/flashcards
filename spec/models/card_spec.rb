@@ -32,13 +32,15 @@ describe Card do
   context "when called #review" do
     let(:card) { create(:card) }
 
-    it "review date increases if translation is correct" do
+    before :each do
       card.review_date = Date.today
+    end
+
+    it "review date increases if translation is correct" do
       card.review(card.original_text)
       expect(card.review_date).to eq(Date.today + 3.days)
     end
     it "review date remains the same if translation is incorrect" do
-      card.review_date = Date.today
       card.review("abrakAdabra")
       expect(card.review_date).to eq(Date.today)
     end
