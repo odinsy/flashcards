@@ -4,5 +4,4 @@ rvm:
 before_script:
   - cp config/database.yml.travis config/database.yml
   - psql -c 'create database flashcards_test;' -U postgres
-script:
-  - rspec spec
+script: bundle exec rspec spec
