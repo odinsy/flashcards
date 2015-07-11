@@ -1,0 +1,7 @@
+language: ruby
+rvm:
+  - 2.2.2
+before_script:
+  - cp config/database.yml.travis config/database.yml
+  - psql -c 'create database flashcards_test;' -U postgres
+script: bundle exec rspec spec
