@@ -3,8 +3,7 @@ require "rails_helper"
 describe "the review process" do
   before :each do
     @card = create(:card)
-    @card.review_date = Date.today
-    @card.save
+    @card.update_attributes(review_date: Date.today)
     visit new_review_path
   end
 
