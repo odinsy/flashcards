@@ -2,7 +2,8 @@ require "rails_helper"
 
 describe "the review process" do
   before :each do
-    @card = create(:card)
+    @user = create(:user)
+    @card = create(:card, user_id: @user.id)
     @card.update_attributes(review_date: Date.today)
     visit new_review_path
   end
@@ -17,8 +18,8 @@ describe "the review process" do
     expect(page).to have_content "Правильно!"
   end
 
-  it "shows 'Неравильно!' when answer is incorrect" do
-    fill_in "review_user_input", with: "123123123"
+  it "shows 'Неправильно!' when answer is incorrect" do
+    fill_in "review_user_input", with: "123"
     click_on 'Review'
     expect(page).to have_content "Неправильно!"
   end
