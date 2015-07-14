@@ -1,23 +1,25 @@
 class CardsController < ApplicationController
 
   before_action :find_card, only: [:show, :edit, :update, :destroy]
+  before_action :find_user, only: [:index, :new, :create]
+  before_action :restrict_access, only: [:show, :edit]
 
   def index
-    @cards = Card.all.order(:id)
+    @cards = @user.cards
   end
 
   def show
   end
 
   def new
-    @card = Card.new
+    @card = @user.cards.build
   end
 
   def edit
   end
 
   def create
-    @card = Card.create(card_params)
+    @card = @user.cards.create(card_params)
     if @card.errors.empty?
       redirect_to @card
     else
@@ -47,6 +49,17 @@ class CardsController < ApplicationController
 
     def find_card
       @card = Card.find(params[:id])
+    end
+
+    def find_user
+      @user = current_user
+    end
+
+    def restrict_access
+      unless current_user == @card.user
+        flash[:warning] = 'Access denied!'
+        redirect_to (request.referrer || root_path)
+      end
     end
 
 end
