@@ -41,3 +41,47 @@ describe "the register proccess" do
   end
 
 end
+
+describe "show/edit user page" do
+
+  before :each do
+    @user = create(:user)
+  end
+
+  it "doesn't shows the user's page when an user not logged in" do
+    visit user_path(@user)
+    expect(page).to have_content "You have to authenticate to access this page!"
+  end
+
+  it "doesn't shows the edit page when an user not logged in" do
+    visit edit_user_path(@user)
+    expect(page).to have_content "You have to authenticate to access this page!"
+  end
+
+  it "shows the edit page when the user is logged" do
+    login("user@example.com", "password")
+    visit edit_user_path(@user)
+    expect(page).to have_content "Редактировать профиль"
+  end
+
+  it "shows the user's page when the user is logged" do
+    login("user@example.com", "password")
+    visit user_path(@user)
+    expect(page).to have_content @user.email
+  end
+
+  it "restricts access when user trying to edit page of another user" do
+    @user2 = create(:user, email: "user2@example.com")
+    login("user@example.com", "password")
+    visit edit_user_path(@user2)
+    expect(page).to have_content "Access denied!"
+  end
+
+  it "restricts access when user trying to show page of another user" do
+    @user2 = create(:user, email: "user2@example.com")
+    login("user@example.com", "password")
+    visit user_path(@user2)
+    expect(page).to have_content "Access denied!"
+  end
+
+end

@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
   def create
     if login(params[:session][:email], params[:session][:password])
       flash[:success] = "Login successful"
-      redirect_back_or_to root_path
+      redirect_to root_path
     else
       flash[:alert] = "Login failed"
       render "new"
