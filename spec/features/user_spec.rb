@@ -16,7 +16,7 @@ describe "the login/logout proccess" do
 
   it "sings me out" do
     login("user@example.com", "password")
-    click_link "Log Out"
+    click_link "Выйти"
     expect(page).to have_content "Войти"
   end
 
