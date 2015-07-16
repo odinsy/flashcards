@@ -42,3 +42,6 @@ bower.json
 
 # Ignore pow environment settings
 .powenv
+
+# Ignore sorcery.rb
+config/initializers/sorcery.rb

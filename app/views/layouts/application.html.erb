@@ -25,12 +25,13 @@
             <ul class="dropdown-menu">
               <li><%= link_to "Профиль", user_path(current_user) %></li>
               <li><%= link_to "Изменить профиль", edit_user_path(current_user) %></li>
-              <li><%= link_to 'Log Out', :logout, method: :delete %></li>
+              <li><%= link_to 'Выйти', :logout, method: :delete %></li>
             </ul>
           </li>
         <% else %>
-          <li><%= link_to "Зарегистрироваться", sign_up_path %>
-          <li><%= link_to "Войти", :login %>
+          <li><%= link_to "Зарегистрироваться", sign_up_path %></li>
+          <li><%= link_to "Войти", :login %></li>
+          <li><%= link_to 'Войти через Github', auth_at_provider_path(provider: :github) %></li>
         <% end %>
         </ul>
       </nav>
