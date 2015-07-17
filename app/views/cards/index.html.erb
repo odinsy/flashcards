@@ -11,8 +11,8 @@
     </tr>
   </thead>
   <tbody>
-  <% unless @cards.nil? %>
-    <% @user.cards.each do |card| %>
+  <% unless current_user.cards.nil? %>
+    <% current_user.cards.each do |card| %>
       <tr>
         <td><%= card.id %></td>
         <td><%= card.original_text %></td>

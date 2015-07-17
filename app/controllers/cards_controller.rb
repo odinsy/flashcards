@@ -1,25 +1,24 @@
 class CardsController < ApplicationController
 
   before_action :find_card, only: [:show, :edit, :update, :destroy]
-  before_action :find_user, only: [:index, :new, :create]
   before_action :restrict_access, only: [:show, :edit]
 
   def index
-    @cards = @user.cards
+    @cards = current_user.cards
   end
 
   def show
   end
 
   def new
-    @card = @user.cards.build
+    @card = current_user.cards.build
   end
 
   def edit
   end
 
   def create
-    @card = @user.cards.create(card_params)
+    @card = current_user.cards.create(card_params)
     if @card.errors.empty?
       redirect_to @card
     else
@@ -48,11 +47,7 @@ class CardsController < ApplicationController
     end
 
     def find_card
-      @card = Card.find(params[:id])
-    end
-
-    def find_user
-      @user = current_user
+      @card = current_user.cards.find(params[:id])
     end
 
     def restrict_access

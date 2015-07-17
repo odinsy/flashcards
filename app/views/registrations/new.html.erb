@@ -1,0 +1,8 @@
+<h3>Регистрация</h3>
+
+<%= simple_form_for(:registration, url: registrations_path) do |f| %>
+  <%= f.input :email, required: true %>
+  <%= f.input :password, required: true %>
+  <%= f.input :password_confirmation, required: true %>
+  <%= f.submit "Зарегистрироваться", class: 'btn btn-primary btn-lg' %>
+<% end %>
