@@ -34,7 +34,7 @@ describe "cards" do
     @user = create(:user)
   end
 
-  context "restricts access to view or edit a card of another user" do
+  context "when user trying to view or edit a card of another user" do
 
     before :each do
       @user2 = create(:user, email: "user2@example.com")
@@ -43,19 +43,19 @@ describe "cards" do
       login("user@example.com", "password")
     end
 
-    it "restricts access when user trying to view a card" do
+    it "restricts access to view a card" do
       visit card_path(@card)
-      expect(page).to have_content "Access denied!"
+      expect(page).to have_content "Invalid card!"
     end
 
-    it "restricts access when user trying to edit a card" do
+    it "restricts access to edit a card" do
       visit edit_card_path(@card)
-      expect(page).to have_content "Access denied!"
+      expect(page).to have_content "Invalid card!"
     end
 
   end
 
-  context "allows to view or edit user card" do
+  context "when user trying to view or edit his card" do
 
     before :each do
       @card = create(:card, user_id: @user.id)
@@ -75,7 +75,7 @@ describe "cards" do
 
   end
 
-  context "view user cards" do
+  context "when user trying to view cards" do
 
     it "doesn't show cards of another user" do
       @user2 = create(:user, email: "user2@example.com")

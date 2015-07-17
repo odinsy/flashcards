@@ -1,4 +1,8 @@
-<%= simple_form_for(:profile, url: profile_path, method: "put") do |f| %>
+<% current_user.errors.full_messages.each do |msg| %>
+  <li><%= msg %></li>
+<% end %>
+
+<%= simple_form_for(:profile, url: profile_path(current_user), method: "put") do |f| %>
   <%= f.input :email, required: true %>
   <%= f.input :password, required: true %>
   <%= f.input :password_confirmation, required: true %>

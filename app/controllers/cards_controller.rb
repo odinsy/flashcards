@@ -1,7 +1,7 @@
 class CardsController < ApplicationController
 
   before_action :find_card, only: [:show, :edit, :update, :destroy]
-  before_action :restrict_access, only: [:show, :edit]
+  rescue_from ActiveRecord::RecordNotFound, with: :invalid_card
 
   def index
     @cards = current_user.cards
@@ -42,19 +42,16 @@ class CardsController < ApplicationController
 
   private
 
-    def card_params
-      params.require(:card).permit(:original_text, :translated_text, :review_date)
-    end
+  def card_params
+    params.require(:card).permit(:original_text, :translated_text, :review_date)
+  end
 
-    def find_card
-      @card = current_user.cards.find(params[:id])
-    end
+  def find_card
+    @card = current_user.cards.find(params[:id])
+  end
 
-    def restrict_access
-      unless current_user == @card.user
-        flash[:warning] = 'Access denied!'
-        redirect_to (request.referrer || root_path)
-      end
-    end
+  def invalid_card
+    redirect_to cards_path, notice: "Invalid card!"
+  end
 
 end
