@@ -9,7 +9,7 @@ class RegistrationsController < ApplicationController
   def create
     @user = User.create(user_params)
     if @user.errors.empty?
-      login(params[:registration][:email], params[:registration][:password])
+      auto_login(@user)
       flash[:success] = 'Welcome!'
       redirect_to root_path
     else
