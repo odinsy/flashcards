@@ -1,11 +1,11 @@
 class ReviewsController < ApplicationController
 
   def new
-    @card = Card.to_repeat.order("RANDOM()").first
+    @card = current_user.cards.to_repeat.order("RANDOM()").first
   end
 
   def create
-    @card = Card.find(review_params[:card_id])
+    @card = current_user.cards.find(review_params[:card_id])
     if @card.review(review_params[:user_input])
       flash[:notice] = "Правильно!"
     else

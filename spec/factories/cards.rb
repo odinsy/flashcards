@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :card do
-    original_text " TeXt 1123 МиРуМ   "
-    translated_text " aSd ФыВ  "
+    original_text " TexT МиР "
+    translated_text " ТексТ WorlD "
     review_date Date.today
   end
 end
