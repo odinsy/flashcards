@@ -22,6 +22,7 @@ config/database.yml
 capybara-*.html
 .rspec
 /public/system
+/public/uploads
 /coverage/
 /spec/tmp
 **.orig
@@ -41,3 +42,6 @@ bower.json
 
 # Ignore pow environment settings
 .powenv
+
+# Ignore application configuration
+/config/application.yml
