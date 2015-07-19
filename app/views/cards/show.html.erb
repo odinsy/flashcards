@@ -1,6 +1,7 @@
 <ul>
   <li><%= @card.original_text %></li>
   <li><%= @card.translated_text %></li>
+  <li><%= image_tag(@card.image.url) if @card.image? %></li>
   <li><%= @card.review_date %></li>
   <li><%= link_to "Редактировать", edit_card_path %></li>
   <li><%= link_to "Удалить", method: :delete, data: { confirm: 'Are you sure?' } %></li>

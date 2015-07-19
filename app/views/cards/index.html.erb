@@ -2,7 +2,7 @@
 <caption>Список карточек</caption>
   <thead>
     <tr>
-      <td>ID карточки</td>
+      <td>Image</td>
       <td>Оригинальный текст</td>
       <td>Переведенный текст</td>
       <td>Дата просмотра</td>
@@ -14,7 +14,7 @@
   <% unless current_user.cards.nil? %>
     <% current_user.cards.each do |card| %>
       <tr>
-        <td><%= card.id %></td>
+        <td><%= image_tag(card.image.thumb.url) if card.image? %></td>
         <td><%= card.original_text %></td>
         <td><%= card.translated_text %></td>
         <td><%= card.review_date.strftime("%d/%m/%Y") %></td>

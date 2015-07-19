@@ -1,5 +1,6 @@
 class Card < ActiveRecord::Base
   belongs_to  :user
+  mount_uploader :image, ImageUploader
 
   validates :user, presence: true
   validates :original_text, :translated_text, :review_date, presence: true
