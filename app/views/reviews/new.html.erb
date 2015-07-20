@@ -1,10 +1,19 @@
 <% unless @card.nil? %>
-  <div class="alert alert-warning text-center">
-    <%= @card.translated_text %>
+  <div class="col-md-4 col-md-offset-4 text-center">
+    <div class="thumbnail">
+      <%= image_tag(@card.image.url) if @card.image? %>
+      <div class="caption">
+        <div class="alert alert-warning">
+          <%= @card.translated_text %>
+        </div>
+      </div>
+      <div>
+        <%= simple_form_for(:review, url: reviews_path, class: "form-group") do |f| %>
+          <%= f.hidden_field :card_id, value: @card.id %>
+          <%= f.input_field :user_input, class: "form-control" %>
+          <%= f.button :submit, "Review", class: "btn btn-primary btn-lg btn-block" %>
+        <% end %>
+      </div>
+    </div>
   </div>
-  <%= simple_form_for(:review, url: reviews_path) do |f| %>
-    <%= f.hidden_field :card_id, value: @card.id %>
-    <%= f.input_field :user_input, class: "form-control" %>
-    <%= f.button :submit, "Review" %>
-  <% end %>
 <% end %>

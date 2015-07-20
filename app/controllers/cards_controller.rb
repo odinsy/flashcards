@@ -20,7 +20,7 @@ class CardsController < ApplicationController
   def create
     @card = current_user.cards.create(card_params)
     if @card.errors.empty?
-      redirect_to @card
+      redirect_to cards_path
     else
       render "new"
     end
@@ -43,7 +43,7 @@ class CardsController < ApplicationController
   private
 
   def card_params
-    params.require(:card).permit(:original_text, :translated_text, :review_date)
+    params.require(:card).permit(:original_text, :translated_text, :review_date, :image)
   end
 
   def find_card
