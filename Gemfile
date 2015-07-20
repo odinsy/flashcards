@@ -24,8 +24,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # other gems
 gem 'simple_form'
 gem 'sorcery'
-gem 'fog-aws'
-gem 'carrierwave', github:'carrierwaveuploader/carrierwave'
+gem 'carrierwave'
+gem 'fog'
 gem 'rmagick'
 
 # Use ActiveModel has_secure_password
