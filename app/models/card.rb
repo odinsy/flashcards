@@ -1,8 +1,11 @@
 class Card < ActiveRecord::Base
-  belongs_to  :user
+
+  attr_accessor :new_deck
+
+  belongs_to :deck
   mount_uploader :image, ImageUploader
 
-  validates :user, presence: true
+  validates :deck, presence: true
   validates :original_text, :translated_text, :review_date, presence: true
   validate  :texts_are_different
   before_validation :set_review_date, on: :create
@@ -19,6 +22,10 @@ class Card < ActiveRecord::Base
     string.mb_chars.downcase.strip
   end
 
+  def new_deck=(deck_name)
+    self.deck = Deck.create(title: deck_name) if deck_name.present?
+  end
+
   private
 
   def texts_are_different
@@ -30,4 +37,5 @@ class Card < ActiveRecord::Base
   def set_review_date
     self.review_date = Date.today + 3.days
   end
+
 end

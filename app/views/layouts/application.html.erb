@@ -16,8 +16,16 @@
           <li><%= link_to "Главная", root_path %></li>
         <% if current_user %>
           <li><%= link_to "Тренировщик", new_review_path %></li>
-          <li><%= link_to "Мои карточки", cards_path %></li>
-          <li><%= link_to "Добавить карточку", new_card_path %></li>
+          <li><%= link_to "Мои колоды", decks_path %></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <%= "Добавить" %> <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+              <li><%= link_to "Добавить колоду", new_deck_path %></li>
+              <li><%= link_to "Добавить карточку", new_card_path %></li>
+            </ul>
+          </li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <%= current_user.email %> <b class="caret"></b>

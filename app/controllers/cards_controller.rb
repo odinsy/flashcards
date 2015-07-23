@@ -1,24 +1,25 @@
 class CardsController < ApplicationController
 
   before_action :find_card, only: [:show, :edit, :update, :destroy]
-  rescue_from ActiveRecord::RecordNotFound, with: :invalid_card
 
   def index
     @cards = current_user.cards
   end
 
-  def show
+  def new
+    @deck = current_user.decks.build
+    @card = @deck.cards.build
   end
 
-  def new
-    @card = current_user.cards.build
+  def show
   end
 
   def edit
   end
 
   def create
-    @card = current_user.cards.create(card_params)
+    @card = Card.create(card_params)
+    @card.deck.update_attributes(user_id: current_user.id) unless @card.deck.nil?
     if @card.errors.empty?
       redirect_to cards_path
     else
@@ -43,7 +44,7 @@ class CardsController < ApplicationController
   private
 
   def card_params
-    params.require(:card).permit(:original_text, :translated_text, :review_date, :image)
+    params.require(:card).permit(:original_text, :translated_text, :review_date, :image, :deck_id, :user_id, :new_deck)
   end
 
   def find_card

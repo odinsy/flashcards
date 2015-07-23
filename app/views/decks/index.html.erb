@@ -1,0 +1,12 @@
+<div class="list-group">
+  <% unless current_user.decks.nil? %>
+    <% current_user.decks.each do |deck| %>
+      <%= link_to deck_path(deck), class: "list-group-item" do %>
+        <%= deck.title %>
+          <span class="badge"><%= "current" if deck.current? %></span>
+          <%= link_to "Сделать текущей", make_current_deck_path(deck), data: { confirm: 'Are you sure' } %>
+          <%= link_to "Удалить", deck, method: :delete, data: { confirm: 'Are you sure?' } %>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>
