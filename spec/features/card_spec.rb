@@ -37,7 +37,7 @@ describe "cards" do
       login("user@example.com", "password")
     end
 
-    it "shows the card's page of the user" do
+    it "shows the card's page" do
       visit card_path(@card)
       expect(page).to have_content @card.translated_text
     end

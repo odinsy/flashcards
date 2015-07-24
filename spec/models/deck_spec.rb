@@ -4,21 +4,30 @@ describe Deck do
 
   let!(:user) { create(:user) }
 
-  context "when set current deck " do
+  context "when called method #check_current" do
 
     let!(:deck) { create(:deck, user_id: user.id) }
 
-    it "changes the value of key 'current' to 'true' in the deck" do
-      deck.make_current
-      expect(deck.current).to eq(true)
+    it "returns 'true' when the deck is current" do
+      user.update_attributes(current_deck_id: deck.id)
+      expect(deck.check_current).to eq(true)
     end
 
-    it "changes the value of key 'current' to 'false' in other decks" do
-      deck2 = create(:deck, title: "Колода 2", current: true, user_id: user.id)
-      deck.make_current
-      expect(deck2.current).to eq(false)
+    it "returns 'false' when the deck is not current" do
+      expect(deck.check_current).to eq(false)
     end
 
+  end
+
+  context "if selected the current deck" do
+
+    let!(:deck) { create(:deck, user_id: user.id) }
+
+    it "changes" do
+      user.update_attributes(current_deck_id: deck.id)
+      expect(user.current_deck_id).to eq(deck.id)
+    end
+    
   end
 
 end
