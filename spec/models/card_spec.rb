@@ -2,9 +2,9 @@ require "rails_helper"
 
 describe Card do
 
-  before :context do
+  before :each do
     @user = create(:user)
-    @deck = create(:deck, user_id: @user_id)
+    @deck = create(:deck, user_id: @user.id)
   end
 
   context "when called #prepare_word" do

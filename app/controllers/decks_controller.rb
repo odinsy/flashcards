@@ -5,7 +5,7 @@ class DecksController < ApplicationController
 
   def make_current
     @deck.make_current
-    redirect_to :back
+    redirect_to decks_path
   end
 
   def index
@@ -34,7 +34,7 @@ class DecksController < ApplicationController
   def update
     @deck.update_attributes(deck_params)
     if @deck.errors.empty?
-      redirect_to @deck
+      redirect_to decks_path
     else
       render "edit"
     end
