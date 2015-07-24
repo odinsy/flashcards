@@ -1,6 +1,7 @@
 class CardsController < ApplicationController
 
   before_action :find_card, only: [:show, :edit, :update, :destroy]
+  rescue_from ActiveRecord::RecordNotFound, with: :invalid_card
 
   def index
     @cards = current_user.cards
@@ -19,7 +20,6 @@ class CardsController < ApplicationController
 
   def create
     @card = Card.create(card_params)
-    @card.deck.update_attributes(user_id: current_user.id) unless @card.deck.nil?
     if @card.errors.empty?
       redirect_to cards_path
     else
@@ -44,7 +44,7 @@ class CardsController < ApplicationController
   private
 
   def card_params
-    params.require(:card).permit(:original_text, :translated_text, :review_date, :image, :deck_id, :user_id, :new_deck)
+    params.require(:card).permit(:original_text, :translated_text, :review_date, :image, :deck_id, new_deck: [:title]).deep_merge(new_deck: {user_id: current_user.id})
   end
 
   def find_card

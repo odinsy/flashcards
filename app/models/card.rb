@@ -5,7 +5,7 @@ class Card < ActiveRecord::Base
   belongs_to :deck
   mount_uploader :image, ImageUploader
 
-  validates :deck, presence: true
+  validates :deck_id, presence: true
   validates :original_text, :translated_text, :review_date, presence: true
   validate  :texts_are_different
   before_validation :set_review_date, on: :create
@@ -22,8 +22,8 @@ class Card < ActiveRecord::Base
     string.mb_chars.downcase.strip
   end
 
-  def new_deck=(deck_name)
-    self.deck = Deck.create(title: deck_name) if deck_name.present?
+  def new_deck=(deck)
+    self.deck = Deck.create(title: deck[:title], user_id: deck[:user_id]) if deck[:title].length > 0
   end
 
   private

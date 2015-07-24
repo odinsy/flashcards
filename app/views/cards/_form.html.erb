@@ -3,7 +3,9 @@
   <%= f.input :translated_text %>
   <%= f.input :image %>
   <%= f.association :deck, label: "Выберите колоду" %>
-  <%= f.input :new_deck, label: "Или создайте новую" %>
+  <%= f.simple_fields_for :new_deck do |deck| %>
+    <%= deck.input :title, label: "Или создайте новую" %>
+  <% end %>
   <%= f.input :review_date %>
   <%= f.button :submit %>
 <% end %>

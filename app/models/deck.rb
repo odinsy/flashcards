@@ -1,10 +1,10 @@
 class Deck < ActiveRecord::Base
 
   belongs_to  :user
-  has_many    :cards, dependent: :destroy
-  accepts_nested_attributes_for :cards
+  has_many  :cards, dependent: :destroy
+  # accepts_nested_attributes_for :cards
 
-  validates :title, presence: true
+  validates :title, presence: true, length: { minimum: 5 }
 
   def make_current
     self.update_attributes(current: true)
