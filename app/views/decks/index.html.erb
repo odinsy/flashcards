@@ -3,8 +3,8 @@
     <% current_user.decks.each do |deck| %>
       <%= link_to deck_path(deck), class: "list-group-item" do %>
         <%= deck.title %>
-          <span class="badge"><%= "current" if deck.current? %></span>
-          <%= link_to "Сделать текущей", make_current_deck_path(deck), data: { confirm: 'Are you sure' } %>
+          <span class="badge"><%= "current" if deck.check_current %></span>
+          <%= link_to "Сделать текущей", make_current_deck_path(deck), method: :put, data: { confirm: 'Are you sure' } %>
           <%= link_to "Редактировать", edit_deck_path(deck) %>
           <%= link_to "Удалить", deck, method: :delete, data: { confirm: 'Are you sure?' } %>
       <% end %>

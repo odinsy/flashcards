@@ -1,10 +1,11 @@
 class DecksController < ApplicationController
 
-  before_action :find_deck, only: [:show, :edit, :update, :destroy, :make_current]
+  before_action :find_deck, only: [:show, :edit, :update, :destroy]
   rescue_from ActiveRecord::RecordNotFound, with: :invalid_deck
 
   def make_current
-    @deck.make_current
+    current_user.update_attributes(current_deck_id: params[:id])
+    Rails.logger.info(current_user.errors.messages.inspect)
     redirect_to decks_path
   end
 
@@ -48,7 +49,7 @@ class DecksController < ApplicationController
   private
 
   def deck_params
-    params.require(:deck).permit(:title, :current)
+    params.require(:deck).permit(:title)
   end
 
   def find_deck

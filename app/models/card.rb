@@ -5,8 +5,7 @@ class Card < ActiveRecord::Base
   belongs_to :deck
   mount_uploader :image, ImageUploader
 
-  validates :deck_id, presence: true
-  validates :original_text, :translated_text, :review_date, presence: true
+  validates :original_text, :translated_text, :review_date, :deck_id, presence: true
   validate  :texts_are_different
   before_validation :set_review_date, on: :create
 

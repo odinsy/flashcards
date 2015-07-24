@@ -1,10 +1,8 @@
 class ReviewsController < ApplicationController
 
   def new
-    if current_user.decks.find_by(current: true).nil?
+    unless @card = current_user.current_deck.cards.to_repeat.order("RANDOM()").first
       @card = current_user.cards.to_repeat.order("RANDOM()").first
-    else
-      @card = current_user.decks.find_by(current: true).cards.to_repeat.order("RANDOM()").first
     end
   end
 

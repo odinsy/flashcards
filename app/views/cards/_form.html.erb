@@ -2,7 +2,7 @@
   <%= f.input :original_text %>
   <%= f.input :translated_text %>
   <%= f.input :image %>
-  <%= f.association :deck, label: "Выберите колоду" %>
+  <%= f.association :deck, collection: current_user.decks, include_blank: false,  label: "Выберите колоду" %>
   <%= f.simple_fields_for :new_deck do |deck| %>
     <%= deck.input :title, label: "Или создайте новую" %>
   <% end %>
