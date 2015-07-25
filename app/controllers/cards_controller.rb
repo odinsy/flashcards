@@ -44,7 +44,7 @@ class CardsController < ApplicationController
   private
 
   def card_params
-    params.require(:card).permit(:original_text, :translated_text, :review_date, :image, :deck_id, new_deck: [:title]).deep_merge(new_deck: {user_id: current_user.id})
+    params.require(:card).permit(:original_text, :translated_text, :review_date, :image, :deck_id, deck_with_new_deck: [:title]).deep_merge(deck_with_new_deck: {deck_id: params[:card][:deck_id], user_id: current_user.id})
   end
 
   def find_card

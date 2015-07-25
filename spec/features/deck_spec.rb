@@ -7,7 +7,7 @@ describe "decks" do
   context "when user trying to view or edit a deck of another user" do
 
     before :each do
-      @user2 =  create(:user, email: "user2@example.com")
+      @user2 = create(:user, email: "user2@example.com")
       @deck = create(:deck, user_id: @user2.id)
       login("user@example.com", "password")
     end

@@ -13,4 +13,12 @@ class User < ActiveRecord::Base
   validates :email, presence: true, uniqueness: true
   validates :password, presence: true, confirmation: true, length: { minimum: 3 }, if: :new_record?
 
+  def card_for_review
+    if self.current_deck
+      self.current_deck.cards.random_card_to_review
+    else
+      self.cards.random_card_to_review
+    end
+  end
+
 end

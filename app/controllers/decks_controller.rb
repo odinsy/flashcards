@@ -5,7 +5,6 @@ class DecksController < ApplicationController
 
   def make_current
     current_user.update_attributes(current_deck_id: params[:id])
-    Rails.logger.info(current_user.errors.messages.inspect)
     redirect_to decks_path
   end
 

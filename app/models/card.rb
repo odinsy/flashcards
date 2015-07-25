@@ -1,6 +1,6 @@
 class Card < ActiveRecord::Base
 
-  attr_accessor :new_deck
+  attr_accessor :deck, :new_deck
 
   belongs_to :deck
   mount_uploader :image, ImageUploader
@@ -10,6 +10,17 @@ class Card < ActiveRecord::Base
   before_validation :set_review_date, on: :create
 
   scope :to_repeat, -> { where("review_date <= ?", Date.today) }
+
+  def deck_with_new_deck=(deck)
+    if deck[:deck_id].blank?
+      new_deck = Deck.create(title: deck[:title], user_id: deck[:user_id])
+      self.update_attributes(deck_id: new_deck[:id])
+    elsif deck[:deck_id]
+      self.update_attributes(deck_id: deck[:deck_id])
+    end
+  end
+
+  alias_method_chain :deck, :new_deck=
 
   def review(user_input)
     if prepare_word(user_input) == prepare_word(original_text)
@@ -21,8 +32,8 @@ class Card < ActiveRecord::Base
     string.mb_chars.downcase.strip
   end
 
-  def new_deck=(deck)
-    self.deck = Deck.create(title: deck[:title], user_id: deck[:user_id]) if deck[:title].length > 0
+  def self.random_card_to_review
+    to_repeat.order("RANDOM()").first
   end
 
   private
