@@ -1,7 +1,5 @@
 class Card < ActiveRecord::Base
 
-  attr_accessor :deck, :new_deck
-
   belongs_to :deck
   mount_uploader :image, ImageUploader
 
@@ -11,16 +9,14 @@ class Card < ActiveRecord::Base
 
   scope :to_repeat, -> { where("review_date <= ?", Date.today) }
 
-  def deck_with_new_deck=(deck)
-    if deck[:deck_id].blank?
-      new_deck = Deck.create(title: deck[:title], user_id: deck[:user_id])
-      self.update_attributes(deck_id: new_deck[:id])
-    elsif deck[:deck_id]
-      self.update_attributes(deck_id: deck[:deck_id])
+  def self.create_with_deck(params)
+    if params[:deck_id].blank?
+      deck = Deck.create(title: params[:deck][:title], user_id: params[:deck][:user_id])
+      create(params.deep_merge!(deck_id: deck[:id]).except!(:deck))
+    elsif params[:deck_id]
+      create(params.except!(:deck))
     end
   end
-
-  alias_method_chain :deck, :new_deck=
 
   def review(user_input)
     if prepare_word(user_input) == prepare_word(original_text)
