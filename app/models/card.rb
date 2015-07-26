@@ -10,6 +10,7 @@ class Card < ActiveRecord::Base
   scope :to_repeat, -> { where("review_date <= ?", Date.today) }
 
   def self.create_with_deck(params)
+    puts params
     deck_params = params.delete(:deck)
     if params[:deck_id].blank?
       deck = Deck.create(deck_params)

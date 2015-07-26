@@ -51,4 +51,48 @@ describe Card do
     end
   end
 
+  context "when created a new card with Good parameters cards via method 'self.create_with_deck'" do
+
+    it "returns that the card is valid, if the deck is selected and title for new deck is not written" do
+      params = {original_text: "Карта 1", translated_text: "Card 1", deck_id: @deck.id, deck: {title: "", user_id: @user.id}, review_date: Date.today}
+      card = Card.create_with_deck(params)
+      expect(card.valid?).to eq(true)
+    end
+
+    it "returns that the card is valid, if the deck is not selected and title for new deck is written" do
+      params = {original_text: "Карта 1", translated_text: "Card 1", deck_id: "", deck: {title: "Колода 2", user_id: @user.id}, review_date: Date.today}
+      card = Card.create_with_deck(params)
+      expect(card.valid?).to eq(true)
+    end
+
+    it "returns that the card is not valid, if the deck is not selected and title for new deck is not written" do
+      params = {original_text: "Карта 1", translated_text: "Card 1", deck_id: "", deck: {title: "", user_id: @user.id}, review_date: Date.today}
+      card = Card.create_with_deck(params)
+      expect(card.valid?).to eq(false)
+    end
+
+  end
+
+  context "when created a new card with Bad parameters cards via method 'self.create_with_deck'" do
+
+    it "returns that the card is not valid, if the deck is selected and title for new deck is not written" do
+      params = {original_text: "", translated_text: "", deck_id: @deck.id, deck: {title: "", user_id: @user.id}, review_date: Date.today}
+      card = Card.create_with_deck(params)
+      expect(card.valid?).to eq(false)
+    end
+
+    it "returns that the card is not valid, if the deck is not selected and title for new deck is written" do
+      params = {original_text: "", translated_text: "", deck_id: "", deck: {title: "Колода 2", user_id: @user.id}, review_date: Date.today}
+      card = Card.create_with_deck(params)
+      expect(card.valid?).to eq(false)
+    end
+
+    it "returns that the card is not valid, if the deck is not selected and title for new deck is not written" do
+      params = {original_text: "", translated_text: "", deck_id: "", deck: {title: "", user_id: @user.id}, review_date: Date.today}
+      card = Card.create_with_deck(params)
+      expect(card.valid?).to eq(false)
+    end
+
+  end
+
 end

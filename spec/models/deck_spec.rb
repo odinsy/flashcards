@@ -10,11 +10,11 @@ describe Deck do
 
     it "returns 'true' when the deck is current" do
       user.update_attributes(current_deck_id: deck.id)
-      expect(deck.current).to eq(true)
+      expect(deck.current?).to eq(true)
     end
 
     it "returns 'false' when the deck is not current" do
-      expect(deck.current).to eq(false)
+      expect(deck.current?).to eq(false)
     end
 
   end

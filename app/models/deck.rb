@@ -5,7 +5,7 @@ class Deck < ActiveRecord::Base
 
   validates :title, presence: true, length: { minimum: 5 }, uniqueness: true
 
-  def current
+  def current?
     self == user.current_deck
   end
 
