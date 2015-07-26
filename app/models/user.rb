@@ -15,10 +15,11 @@ class User < ActiveRecord::Base
 
   def card_for_review
     if self.current_deck
-      self.current_deck.cards.random_card_to_review
+      cards_scope = self.current_deck.cards
     else
-      self.cards.random_card_to_review
+      cards_scope = self.cards
     end
+    cards_scope.to_repeat.order("RANDOM()").first
   end
 
 end

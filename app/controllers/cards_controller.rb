@@ -28,7 +28,7 @@ class CardsController < ApplicationController
   end
 
   def update
-    @card.update_attributes(card_params)
+    @card.update_attributes(card_params.except(:deck))
     if @card.errors.empty?
       redirect_to @card
     else
@@ -38,7 +38,7 @@ class CardsController < ApplicationController
 
   def destroy
     @card.destroy
-    redirect_to cards_path
+    redirect_to deck_path(@card.deck)
   end
 
   private

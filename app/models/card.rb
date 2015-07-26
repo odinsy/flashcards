@@ -10,12 +10,12 @@ class Card < ActiveRecord::Base
   scope :to_repeat, -> { where("review_date <= ?", Date.today) }
 
   def self.create_with_deck(params)
+    deck_params = params.delete(:deck)
     if params[:deck_id].blank?
-      deck = Deck.create(title: params[:deck][:title], user_id: params[:deck][:user_id])
-      create(params.deep_merge!(deck_id: deck[:id]).except!(:deck))
-    elsif params[:deck_id]
-      create(params.except!(:deck))
+      deck = Deck.create(deck_params)
+      params.deep_merge!(deck_id: deck[:id])
     end
+    create(params)
   end
 
   def review(user_input)
@@ -26,10 +26,6 @@ class Card < ActiveRecord::Base
 
   def prepare_word(string)
     string.mb_chars.downcase.strip
-  end
-
-  def self.random_card_to_review
-    to_repeat.order("RANDOM()").first
   end
 
   private
