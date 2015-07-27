@@ -95,4 +95,20 @@ describe Card do
 
   end
 
+  context "when created a new deck via method 'self.create_with_deck'" do
+
+    it "returns the deck if the title for new deck has length equal or more 5" do
+      params = {original_text: "Карта 1", translated_text: "Card 1", deck_id: "", deck: {title: "Колода 2", user_id: @user.id}, review_date: Date.today}
+      card = Card.create_with_deck(params)
+      expect(card.deck.valid?).to eq(true)
+    end
+
+    it "returns 'nil' if the title for new deck has length less than 5" do
+      params = {original_text: "Карта 1", translated_text: "Card 1", deck_id: "", deck: {title: "Коло", user_id: @user.id}, review_date: Date.today}
+      card = Card.create_with_deck(params)
+      expect(card.deck).to be_nil
+    end
+
+  end
+
 end
