@@ -1,7 +1,11 @@
-<%= simple_form_for card do |i| %>
-  <%= i.input :original_text %>
-  <%= i.input :translated_text %>
-  <%= i.input :image %>
-  <%= i.input :review_date %>
-  <%= i.button :submit %>
+<%= simple_form_for card do |f| %>
+  <%= f.input :original_text %>
+  <%= f.input :translated_text %>
+  <%= f.input :image %>
+  <%= f.association :deck, collection: current_user.decks, include_blank: false,  label: "Выберите колоду" %>
+  <%= f.simple_fields_for :deck do |deck| %>
+    <%= deck.input :title, label: "Или создайте новую" %>
+  <% end %>
+  <%= f.input :review_date %>
+  <%= f.button :submit %>
 <% end %>

@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
 
   root "main#index"
+  resources :decks do
+    put "make_current", on: :member
+  end
   resources :cards
   resources :reviews, only: [:new, :create]
   # Registrations

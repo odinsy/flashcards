@@ -1,13 +1,22 @@
 class Card < ActiveRecord::Base
-  belongs_to  :user
+
+  belongs_to :deck
   mount_uploader :image, ImageUploader
 
-  validates :user, presence: true
-  validates :original_text, :translated_text, :review_date, presence: true
+  validates :original_text, :translated_text, :review_date, :deck_id, presence: true
   validate  :texts_are_different
   before_validation :set_review_date, on: :create
 
   scope :to_repeat, -> { where("review_date <= ?", Date.today) }
+
+  def self.create_with_deck(params)
+    deck_params = params.delete(:deck)
+    if params[:deck_id].blank?
+      deck = Deck.create(deck_params)
+      params.deep_merge!(deck_id: deck[:id])
+    end
+    create(params)
+  end
 
   def review(user_input)
     if prepare_word(user_input) == prepare_word(original_text)
@@ -30,4 +39,5 @@ class Card < ActiveRecord::Base
   def set_review_date
     self.review_date = Date.today + 3.days
   end
+
 end

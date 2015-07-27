@@ -5,7 +5,8 @@ describe "review" do
   let!(:user) { create(:user) }
 
   before :each do
-    @card = create(:card, user_id: user.id)
+    @deck = create(:deck, user_id: user.id)
+    @card = create(:card, deck_id: @deck.id)
     @card.update_attributes(review_date: Date.today)
     login("user@example.com", "password")
     visit new_review_path

@@ -1,7 +1,7 @@
 class ReviewsController < ApplicationController
 
   def new
-    @card = current_user.cards.to_repeat.order("RANDOM()").first
+    @card = current_user.card_for_review
   end
 
   def create

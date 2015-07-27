@@ -7,27 +7,28 @@ class CardsController < ApplicationController
     @cards = current_user.cards
   end
 
-  def show
+  def new
+    @deck = current_user.decks.build
+    @card = @deck.cards.build
   end
 
-  def new
-    @card = current_user.cards.build
+  def show
   end
 
   def edit
   end
 
   def create
-    @card = current_user.cards.create(card_params)
+    @card = Card.create_with_deck(card_params)
     if @card.errors.empty?
-      redirect_to cards_path
+      redirect_to deck_path(@card.deck)
     else
       render "new"
     end
   end
 
   def update
-    @card.update_attributes(card_params)
+    @card.update_attributes(card_params.except(:deck))
     if @card.errors.empty?
       redirect_to @card
     else
@@ -37,13 +38,13 @@ class CardsController < ApplicationController
 
   def destroy
     @card.destroy
-    redirect_to cards_path
+    redirect_to deck_path(@card.deck)
   end
 
   private
 
   def card_params
-    params.require(:card).permit(:original_text, :translated_text, :review_date, :image)
+    params.require(:card).permit(:original_text, :translated_text, :review_date, :image, :deck_id, deck: [:title]).deep_merge(deck: {user_id: current_user.id})
   end
 
   def find_card

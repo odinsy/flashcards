@@ -4,7 +4,7 @@ describe "the register proccess" do
 
   it "registers an user when data are correct" do
     register("user@example.com", "password", "password")
-    expect(page).to have_content "Мои карточки"
+    expect(page).to have_content "Мои колоды"
   end
 
   it "doesn't registers when user exists" do

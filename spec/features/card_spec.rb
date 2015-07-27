@@ -10,7 +10,8 @@ describe "cards" do
 
     before :each do
       @user2 = create(:user, email: "user2@example.com")
-      @card = create(:card, user_id: @user2.id)
+      @deck = create(:deck, user_id: @user2.id)
+      @card = create(:card, deck_id: @deck.id)
       @card.update_attributes(review_date: Date.today)
       login("user@example.com", "password")
     end
@@ -30,12 +31,13 @@ describe "cards" do
   context "when user trying to view or edit his card" do
 
     before :each do
-      @card = create(:card, user_id: @user.id)
+      @deck = create(:deck, user_id: @user.id)
+      @card = create(:card, deck_id: @deck.id)
       @card.update_attributes(review_date: Date.today)
       login("user@example.com", "password")
     end
 
-    it "shows the card's page of the user" do
+    it "shows the card's page" do
       visit card_path(@card)
       expect(page).to have_content @card.translated_text
     end
@@ -51,7 +53,8 @@ describe "cards" do
 
     it "doesn't show cards of another user" do
       @user2 = create(:user, email: "user2@example.com")
-      @card = create(:card, user_id: @user2.id)
+      @deck = create(:deck, user_id: @user2.id)
+      @card = create(:card, deck_id: @deck.id)
       @card.update_attributes(review_date: Date.today)
       login("user@example.com", "password")
       visit cards_path
@@ -59,7 +62,8 @@ describe "cards" do
     end
 
     it "shows cards of the user" do
-      @card = create(:card, user_id: @user.id)
+      @deck = create(:deck, user_id: @user.id)
+      @card = create(:card, deck_id: @deck.id)
       @card.update_attributes(review_date: Date.today)
       login("user@example.com", "password")
       visit cards_path
